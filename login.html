@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/login.css">
+    <title>InData - Login</title>
+</head>
+<body>
+    <header>
+        <div class="header-inner u-center">
+            <img
+            src="/img/InData_no_fondo_recortado.png"
+            alt="Logo InData"
+            class="logo-indata"
+            width="200"
+            height="60"
+          />
+        </div>
+    </header>
+    <div class="body u-center">
+        <main>
+            <div class="info">
+                <div class="body-info">
+                    <h1>Bienvenido a InData</h1>
+                    <p>"Haz tu vida, y la de los demás, mucho más fácil"</p>
+                </div>
+                <img src="/img/login-menu.png" alt="imagen representación" />
+            </div>
+            <div id="login">
+                <img src="/img/user.png" class="imagen-login" alt="imagen de usuario" width="100" height="auto">
+                <form class="login__form" action="#">
+                    <p class="login__input--text">
+                        <label for="input-text">Usuario:</label>
+                        <input type="text" placeholder="Digite su usuario" id="input-text"/>
+                    </p>
+                    <p class="login__input--pws">
+                        <label>Contraseña:</label>
+                        <input type="password" name="password" placeholder="Digite su contraseña">
+                    </p>
+                    <button class="login__btn">Iniciar Sesión</button>
+                </form>
+                <div>
+                    <p class="login__input--check">
+                        <input name="remenber-user" type="checkbox">
+                        <label for="remenber-user">Recordame</label>
+                    </p>
+                    <p class="login-forgetpsw__a--"><a href="#">Olvidé mi contraseña</a></p>    
+                </div>
+                <p class="login-t&c__p">
+                    Al realizar el ingreso, confirmo mi conocimiento y aceptación 
+                    de los términos y condiciones para el uso del software InData. <strong><a href="#">Términos y condiciones</a></strong>
+                </p>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
