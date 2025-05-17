@@ -1,0 +1,108 @@
+* {
+    font-family: "Poppins", sans-serif;
+}
+
+html, body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    background-color: #d0ecff;
+}
+
+.u-center {
+    max-width: 1296px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/*Estilos de header y de toda la cabezera*/
+header {
+    background-color: #B7E4FF;
+}
+
+.logo-indata{
+    padding: 10px;
+    max-width: 200px;
+}
+
+.header-inner {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 80px;
+}
+/*---------------------------------------*/
+
+/*Estilos de cuerpo principal*/
+main {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    @media screen and (max-width: 767px){
+        grid-template-columns: none;
+        grid-template-rows: 50% 50%;
+    }
+}
+
+h1 {
+    color: #3273FF;
+}
+
+#login {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 25px;
+    border-radius: 15px;
+    color: black;
+    box-shadow: 1px 1px 23px -1px rgba(0,0,0,0.28);
+}
+
+#login img {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.login__input {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+}
+
+input[type='text'], input[type='password'] {
+    border-radius: 5px;
+    border: solid 1px gray;
+    height: 25px;
+}
+
+.login__btn {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin: 0 auto;
+    background-color: #0ebaf9;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    text-transform: capitalize;
+    transition: all ease-in-out 200ms;
+    text-decoration: none;  
+}
+
+.login__btn:hover {
+    background-color: #09aeea;
+}
+
+.login__remenber-user_forgetpsw {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.login-tc__p{
+    font-size: small;
+}
