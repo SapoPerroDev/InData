@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from .models import Persona
-from .forms import PersonaForm
+from .models import MadreComunitaria
+from .forms import MadreComunitariaForm
 
 
 # Create your views here.
@@ -10,34 +10,36 @@ def login(request):
 
 # Crear y listar personas
 def lista_personas(request):
-    personas = Persona.objects.all()
-    return render(request, 'app_indata/dashboard_admin/lista.html', {'personas': personas})
+    madre = MadreComunitaria.objects.all()
+    if not madre:
+        messages.info(request, "No hay madres comunitarias registradas.")
+    return render(request, 'app_indata/dashboard_admin/lista.html', {'madres': madre})
 
 def agregar_persona(request):
     if request.method == 'POST':
-        form = PersonaForm(request.POST)
+        form = MadreComunitariaForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('lista_personas')
     else:
-        form = PersonaForm()
+        form = MadreComunitariaForm()
     return render(request, 'app_indata/dashboard_admin/formulario.html', {'form': form})
 
 
 def editar_persona(request, pk):
-    persona = get_object_or_404(Persona, pk=pk)
+    madre = get_object_or_404(MadreComunitaria, pk=pk)
     if request.method == 'POST':
-        form = PersonaForm(request.POST, instance=persona)
+        form = MadreComunitariaForm(request.POST, instance=madre)
         if form.is_valid():
             form.save()
             return redirect('lista_personas')
     else:
-        form = PersonaForm(instance=persona)
+        form = MadreComunitariaForm(instance=madre)
     return render(request, 'app_indata/dashboard_admin/formulario.html', {'form': form})
 
 def eliminar_persona(request, pk):
-    persona = get_object_or_404(Persona, pk=pk)
+    madre = get_object_or_404(MadreComunitaria, pk=pk)
     if request.method == 'POST':
-        persona.delete()
+        madre.delete()
         return redirect('lista_personas')
-    return render(request, 'app_indata/dashboard_admin/confirmar_eliminar.html', {'persona': persona})
+    return render(request, 'app_indata/dashboard_admin/confirmar_eliminar.html', {'persona': madre})

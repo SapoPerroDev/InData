@@ -1,5 +1,5 @@
 from django import forms
-from .models import Persona, MadreComunitaria
+from .models import Infante, MadreComunitaria
 
 class MadreComunitariaForm(forms.ModelForm):
     class Meta:
@@ -12,12 +12,14 @@ class MadreComunitariaForm(forms.ModelForm):
             's_apellido': 'Segundo apellido',
             'dni': 'Número de documento',
             'email': 'Dirección de correo',
+            'psw' : 'Contraseña',
+            'telefono' : 'Teléfono',
             'direccion': 'Dirección de residencia',
         }
 
-class PersonaForm(forms.ModelForm):
+class InfanteForm(forms.ModelForm):
     class Meta:
-        model = Persona
+        model = Infante
         fields = '__all__'
         labels = {
             'nombre': 'Nombres',

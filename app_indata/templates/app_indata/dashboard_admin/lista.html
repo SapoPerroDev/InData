@@ -4,12 +4,12 @@
 {% block title %}Lista de Usuarios{% endblock %}
 
 {% block content %}
-<h1>Lista de Personas</h1>
-<a href="{% url 'agregar_persona' %}">Agregar Persona</a>
+<h1>Madres comunitarias</h1>
+<a href="{% url 'agregar_persona' %}">Agregar Madre Comunitaria</a>
 <ul>
-    {% for persona in personas %}
+    {% for madres in madre %}
         <li>
-            {{ persona.nombre }} {{ persona.apellido }} - {{ persona.numero_identificacion }}
+            {{ madre.p_nombre }} {{ madre.p_apellido }} - {{ madre.dni }}
             <a href="{% url 'editar_persona' persona.id %}">Editar</a>
             <a href="{% url 'eliminar_persona' persona.id %}">Eliminar</a>
         </li>
