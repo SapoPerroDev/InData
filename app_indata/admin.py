@@ -1,5 +1,5 @@
 from django.contrib import admin
-from app_indata.models import MadreComunitaria
+from .models import PerfilUsuario
 
 # Register your models here.
-admin.site.register(MadreComunitaria)
+admin.site.register(PerfilUsuario)

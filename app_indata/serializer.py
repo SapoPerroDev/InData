@@ -1,8 +1,18 @@
 from rest_framework import serializers
-from .models import MadreComunitaria, AdministradorEas, Infante
+from .models import PerfilUsuario, Infante
 
-class MadreComunitariaSerializer(serializers.ModelSerializer):
+class UsuariosSerializer(serializers.ModelSerializer):
     class Meta:
-        model = MadreComunitaria
+        model = PerfilUsuario
+        fields = '__all__'
+        
+class UsuariosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PerfilUsuario
+        fields = '__all__'
+
+class UsuariosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PerfilUsuario
         fields = '__all__'
         

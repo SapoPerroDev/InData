@@ -1,9 +1,9 @@
 from django import forms
-from .models import Infante, MadreComunitaria
+from .models import Infante, PerfilUsuario
 
-class MadreComunitariaForm(forms.ModelForm):
+class UsuariosForm(forms.ModelForm):
     class Meta:
-        model = MadreComunitaria
+        model = PerfilUsuario
         fields = '__all__'
         labels = {
             'p_nombre': 'Primer nombre',

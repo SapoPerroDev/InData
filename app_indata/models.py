@@ -1,17 +1,7 @@
+from django.contrib.auth.models import User #Utiliza una tabla ya establecida por django para usuarios
 from django.db import models
 
 # Create your models here.
-class MadreComunitaria(models.Model):
-    dni = models.CharField(max_length=20, unique=True)
-    p_nombre = models.CharField(max_length=50)
-    s_nombre = models.CharField(max_length=50)
-    p_apellido = models.CharField(max_length=50)
-    s_apellido = models.CharField(max_length=50)
-    email = models.EmailField()
-    psw = models.CharField()
-    telefono = models.CharField(max_length=10, unique=True)
-    direccion = models.CharField(max_length=50)
-
 class entidadAdministradoraServicio(models.Model):
     nit = models.CharField(max_length=20, unique=True)
     nombre = models.CharField(max_length=100)
@@ -26,33 +16,40 @@ class entidadAdministradoraServicio(models.Model):
     longitud = models.CharField(max_length=20)
     latitud = models.CharField(max_length=20)
 
-class AdministradorEas(models.Model):
+class PerfilUsuario(models.Model):
+    TIPO_USUARIO = (
+        ('admin', 'Administrador EAS'),
+        ('madre', 'Madre Comunitaria'),
+    )
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='perfil')
+    tipo = models.CharField(max_length=20, choices=TIPO_USUARIO)
     dni = models.CharField(max_length=20, unique=True)
-    id_eas = models.ForeignKey(entidadAdministradoraServicio, on_delete=models.CASCADE)
     p_nombre = models.CharField(max_length=50)
     s_nombre = models.CharField(max_length=50)
     p_apellido = models.CharField(max_length=50)
     s_apellido = models.CharField(max_length=50)
-    email = models.EmailField()
-    psw = models.CharField()
     telefono = models.CharField(max_length=10, unique=True)
+    direccion = models.CharField(max_length=50)
+    id_eas = models.ForeignKey(entidadAdministradoraServicio, on_delete=models.CASCADE)
+
 
 class UnidadServicio(models.Model):
     cod_cuentame = models.CharField(max_length=20, unique=True)
     id_eas = models.ForeignKey(entidadAdministradoraServicio, on_delete=models.CASCADE)
-    id_madre = models.ForeignKey(MadreComunitaria, on_delete=models.CASCADE)
+    id_madre = models.ForeignKey(PerfilUsuario, on_delete=models.CASCADE, limit_choices_to={'tipo': 'madre'})
     nombre = models.CharField(max_length=60)
     direccion = models.CharField(max_length=250)
     longitud = models.CharField(max_length=20)
     latitud = models.CharField(max_length=20)
 
 class TipoDNI(models.Model):
-    tipo = models.CharField(max_length=20)
+    tipo = models.CharField(max_length=50)
 
 class TipoFocalizacion(models.Model):
-    tipo = models.CharField(max_length=20)
+    tipo = models.CharField(max_length=50)
 
 class Infante(models.Model):
+    id_uds = models.ForeignKey(UnidadServicio,  on_delete=models.CASCADE)
     tipo_dni =  models.ForeignKey(TipoDNI, on_delete=models.CASCADE)
     dni = models.CharField(max_length=20, unique=True)
     p_nombre = models.CharField(max_length=50)

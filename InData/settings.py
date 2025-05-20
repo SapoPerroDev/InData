@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'InData.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'indata',
+        'NAME': 'bd_indata',
         'USER': 'postgres',
         'PASSWORD': '@1ejandro',
         'HOST': 'localhost',

@@ -1,20 +1,13 @@
-
-{% extends 'base.html' %}
-
-{% block title %}Lista de Usuarios{% endblock %}
-
-{% block content %}
-<h1>Madres comunitarias</h1>
-<a href="{% url 'agregar_persona' %}">Agregar Madre Comunitaria</a>
-<ul>
-    {% for madres in madre %}
-        <li>
-            {{ madre.p_nombre }} {{ madre.p_apellido }} - {{ madre.dni }}
-            <a href="{% url 'editar_persona' persona.id %}">Editar</a>
-            <a href="{% url 'eliminar_persona' persona.id %}">Eliminar</a>
-        </li>
-    {% endfor %}
-</ul>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Madres Comunitarias</title>
+</head>
+<body>
+  <h1>Lista de Madres</h1>
+  <ul id="lista-madres"></ul>
+  <script src="/static/javascript/main.js" defer></script>
+</body>
+</html>
 
 
