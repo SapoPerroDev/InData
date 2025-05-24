@@ -10,7 +10,7 @@ router.register('api/madres', UsuariosViewSet, basename='madre')
 #router.register('api/ninos', NiñoViewSet, basename='niño')
 
 urlpatterns = [
-    path('', include(router.urls))   # API REST
+    path('', include(router.urls)),
 ]
 
 '''path('terminos/', views.terminos_condiciones, name='terminos'),
