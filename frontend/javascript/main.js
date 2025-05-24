@@ -1,5 +1,4 @@
-
-  fetch("http://127.0.0.1:8000/api/madres/")
+fetch("http://127.0.0.1:8000/api/madres/")
     .then(res => res.json())
     .then(data => {
       const lista = document.getElementById("lista-madres");
@@ -9,4 +8,4 @@
         console.log(`${madre.nombre} - ${madre.telefono}`);
         lista.appendChild(li);
       });
-    });
+});

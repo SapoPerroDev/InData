@@ -19,5 +19,21 @@ class LoginView(APIView):
         return Response({"error": "Credenciales inválidas"}, status=status.HTTP_401_UNAUTHORIZED)
 
 class UsuariosViewSet(viewsets.ModelViewSet):
-    queryset = PerfilUsuario.objects.all()
     serializer_class = UsuariosSerializer
+
+    # Metodo para mostrar y filtrar por tipo 'madre': GET
+    def get_queryset(self):
+        return PerfilUsuario.objects.filter(tipo='madre')
+    # Metodo para crear o actualizar un usuario de tipo 'madre': POST
+    def perform_create(self, serializer):
+        serializer.save(tipo='madre')
+    # Metodo para actualizar un usuario de tipo 'madre': PUT
+    def perform_update(self, serializer):
+        serializer.save(tipo='madre')
+    # Metodo para eliminar un usuario de tipo 'madre': DELETE
+    def perform_destroy(self, instance):
+        if instance.tipo == 'madre':
+            instance.delete()
+        else:
+            # Opcional: puedes lanzar un error si intentan borrar un usuario que no sea madre
+            pass
