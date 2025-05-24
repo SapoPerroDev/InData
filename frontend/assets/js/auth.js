@@ -1,10 +1,12 @@
 document.getElementById('loginForm').addEventListener('submit', async function(e) {
   e.preventDefault();
 
-  const username = document.getElementById('username').value;
-  const password = document.getElementById('password').value;
+  const username = document.getElementById('user').value;
+  const password = document.getElementById('psw').value;
 
-  const response = await fetch('http://localhost:8000/api/login/', {
+  console.log('Intentando iniciar sesión con:', username);
+
+  const response = await fetch('http://127.0.0.1:8000/api/login/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
