@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
-def terminos_condiciones(request):
+'''def terminos_condiciones(request):
     return render(request, 'app_indata/terminos&condiciones.html')
 
 @login_required
@@ -53,4 +53,4 @@ def eliminar_persona(request, pk):
     if request.method == 'POST':
         madre.delete()
         return redirect('lista_personas')
-    return render(request, 'app_indata/dashboard_admin/confirmar_eliminar.html', {'persona': madre})
+    return render(request, 'app_indata/dashboard_admin/confirmar_eliminar.html', {'persona': madre})'''
