@@ -18,14 +18,18 @@ document
 
     if (response.ok) {
       const data = await response.json();
+      messageDiv.className = "login-message";
       messageDiv.style.color = "green";
-      messageDiv.textContent = "¡Login exitoso!";
+      messageDiv.style.background = "none";
+      messageDiv.style.border = "none";
+      messageDiv.innerHTML = "¡Login exitoso!";
       localStorage.setItem("access_token", data.access);
       localStorage.setItem("refresh_token", data.refresh);
     } else {
       const error = await response.json();
-      messageDiv.style.color = "red";
-      messageDiv.textContent =
-        error.detail || error.error || "Credenciales incorrectas";
+      messageDiv.className = "login-message error";
+      messageDiv.innerHTML =
+        `<span class="icon-attention"><i class="fa-solid fa-triangle-exclamation"></i></span>` +
+        (error.detail || error.error || "Credenciales incorrectas");
     }
   });

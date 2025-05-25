@@ -37,10 +37,10 @@ header {
 /*Estilos de cuerpo principal*/
 main {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 60% 40%;
     @media screen and (max-width: 767px){
         grid-template-columns: none;
-        grid-template-rows: 50% 50%;
+        grid-template-rows: 60% 40%;
     }
 }
 
@@ -48,6 +48,7 @@ h1 {
     color: #3273FF;
 }
 
+/*Estilos de login*/
 #login {
     display: flex;
     flex-direction: column;
@@ -103,6 +104,34 @@ input[type='text'], input[type='password'] {
     justify-content: space-around;
 }
 
-.login-tc__p{
+.login-tc__p {
+    margin-top: auto;
+    margin-bottom: 0;
     font-size: small;
+}
+
+.login-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    min-height: 32px;
+}
+
+.login-message.error {
+    color: #b10000;
+    background: #ffeaea;
+    border: 1px solid #ffbaba;
+    border-radius: 6px;
+    padding: 8px 12px;
+}
+
+.login-message .icon-attention {
+    color: #ff9800;
+    font-size: 1.3em;
+    margin-right: 6px;
+    display: flex;
+    align-items: center;
 }

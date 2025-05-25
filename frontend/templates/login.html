@@ -1,61 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/58deb355db.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/frontend/assets/css/login.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/58deb355db.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="/frontend/assets/css/login.css" />
     <title>InData - Login</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <div class="header-inner u-center">
-            <img
-            src="/frontend//assets/img/InData_no_fondo_recortado.png"
-            alt="Logo InData"
-            class="logo-indata"
-            width="200"
-            height="60"
-          />
-        </div>
+      <div class="header-inner u-center">
+        <img
+          src="/frontend//assets/img/InData_no_fondo_recortado.png"
+          alt="Logo InData"
+          class="logo-indata"
+          width="200"
+          height="60"
+        />
+      </div>
     </header>
     <div class="body u-center">
-        <main>
-            <div class="info">
-                <div class="body-info">
-                    <h1>Bienvenido a InData</h1>
-                    <p>"Haz tu vida, y la de los demás, mucho más fácil"</p>
-                </div>
-                <img src="/frontend//assets/img/login-menu.png" alt="imagen representación" />
+      <main>
+        <div class="info">
+          <div class="body-info">
+            <h1>Bienvenido a InData</h1>
+            <p>"Haz tu vida, y la de los demás, mucho más fácil"</p>
+          </div>
+          <img
+            src="/frontend//assets/img/login-menu.png"
+            alt="imagen representación"
+          />
+        </div>
+        <div id="login">
+          <img
+            src="/frontend//assets/img/user.png"
+            class="imagen-login"
+            alt="imagen de usuario"
+            width="100"
+            height="auto"
+          />
+          <form class="login__form" id="loginForm" action="#">
+            <div class="login__input">
+              <label for="user">Usuario:</label>
+              <input
+                type="text"
+                name="user"
+                placeholder="Digite su usuario"
+                id="user"
+                required
+              />
             </div>
-            <div id="login">
-                <img src="/frontend//assets/img/user.png" class="imagen-login" alt="imagen de usuario" width="100" height="auto">
-                <form class="login__form" id="loginForm" action="#">
-                    <div class="login__input">
-                        <label for="user">Usuario:</label>
-                        <input type="text" name="user" placeholder="Digite su usuario" id="user" required />
-                    </div>
-                    <div class="login__input">
-                        <label for="psw">Contraseña:</label>
-                        <input type="password" name="psw" placeholder="Digite su contraseña" id="psw" required />
-                    </div>
-                    <button type="submit" class="login__btn">Iniciar Sesión<i class="fa-solid fa-arrow-right"></i></button>
-                </form>
-                <div class="login__remenber-user_forgetpsw">
-                    <p class="login__input--check">
-                        <input name="remenber-user" type="checkbox">
-                        <label for="remenber-user">Recordame</label>
-                    </p>
-                    <p class="login-forgetpsw__a--"><a href="#">Olvidé mi contraseña</a></p>    
-                </div>
-                <div id="message"></div>
-                <p class="login-tc__p">
-                    Al realizar el ingreso, confirmo mi conocimiento y aceptación 
-                    de los términos y condiciones para el uso del software InData. <strong><a href="terminos&condiciones.html">Términos y condiciones</a></strong>.
-                </p>
+            <div class="login__input">
+              <label for="psw">Contraseña:</label>
+              <input
+                type="password"
+                name="psw"
+                placeholder="Digite su contraseña"
+                id="psw"
+                required
+              />
             </div>
-        </main>
+            <button type="submit" class="login__btn">
+              Iniciar Sesión<i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </form>
+          <div class="login__remenber-user_forgetpsw">
+            <p class="login__input--check">
+              <input name="remenber-user" type="checkbox" />
+              <label for="remenber-user">Recordame</label>
+            </p>
+            <p class="login-forgetpsw__a--">
+              <a href="#">Olvidé mi contraseña</a>
+            </p>
+          </div>
+          <div id="message" class="login-message"></div>
+          <p class="login-tc__p">
+            Al realizar el ingreso, confirmo mi conocimiento y aceptación de los
+            términos y condiciones para el uso del software InData.
+            <strong
+              ><a href="terminos&condiciones.html"
+                >Términos y condiciones</a
+              ></strong
+            >.
+          </p>
+        </div>
+      </main>
     </div>
     <script src="/frontend/assets/js/auth.js"></script>
-</body>
+  </body>
 </html>
