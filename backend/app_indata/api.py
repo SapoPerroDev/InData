@@ -19,9 +19,19 @@ class LoginView(APIView):
 
         if user:
             refresh = RefreshToken.for_user(user)
+            # Determinar tipo de usuario
+            if user.is_superuser:
+                user_type = 'superuser'
+            else:
+                perfil = getattr(user, 'perfil', None)
+                if perfil:
+                    user_type = perfil.tipo  # 'admin' o 'madre'
+                else:
+                    user_type = 'unknown'
             return Response({
                 "refresh": str(refresh),
                 "access": str(refresh.access_token),
+                "user_type": user_type,
             })
         return Response({"error": "Credenciales inválidas"}, status=status.HTTP_401_UNAUTHORIZED)
 

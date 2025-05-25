@@ -1,3 +1,7 @@
+function clearField(fieldId) {
+    document.getElementById(fieldId).value = '';
+}
+
 document
   .getElementById("loginForm")
   .addEventListener("submit", async function (e) {
@@ -18,14 +22,27 @@ document
 
     if (response.ok) {
       const data = await response.json();
-      messageDiv.className = "login-message";
-      messageDiv.style.color = "green";
-      messageDiv.style.background = "none";
-      messageDiv.style.border = "none";
-      messageDiv.innerHTML = "¡Login exitoso!";
       localStorage.setItem("access_token", data.access);
       localStorage.setItem("refresh_token", data.refresh);
+      localStorage.setItem("user_type", data.user_type);
+
+      // Mapeo de tipo de usuario a ruta
+      const dashboardRoutes = {
+        superuser: "/admin/",
+        admin: "/frontend/templates/dashboard_admin.html",
+        madre: "/frontend/templates/dashboard_madre.html",
+      };
+
+      const redirectUrl = dashboardRoutes[data.user_type];
+      if (redirectUrl) {
+        window.location.href = redirectUrl;
+      } else {
+        messageDiv.innerHTML = "No se pudo determinar el tipo de usuario.";
+      }
     } else {
+      clearField("user");
+      clearField("psw");
+      // Manejo de errores
       const error = await response.json();
       messageDiv.className = "login-message error";
       messageDiv.innerHTML =
