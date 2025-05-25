@@ -3,9 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/frontend/assets/css/estilos.css">
     <title>Admin</title>
 </head>
 <body>
-    <p>Soy Admin, perras</p>
+    <!-- ENCABEZADO SUPERIOR -->
+    <header class="encabezado">
+        <div class="logo">
+            Asociación de Hogares Comunitarios de Bienestar<br>
+            NIT 800123748-8
+        </div>
+        <div class="perfil">
+            <i class="bi bi-bell"></i>
+            <span><i class="bi bi-person-circle"></i> {{ user.first_name }} {{ user.last_name }}</span>
+            <form method="POST" action="{% url 'logout' %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="logout-btn"><i class="bi bi-box-arrow-right"></i></button>
+            </form>
+        </div>
+    </header>
+
+    <div class="contenedor">
+        <!-- BARRA LATERAL -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="#"><i class="bi bi-person-square"></i> Focalización</a></li>
+                <li><a href="#"><i class="bi bi-people-fill"></i> Lista de niños</a></li>
+                <li><a href="#"><i class="bi bi-pencil-square"></i> Editar listado</a></li>
+                <li><a href="#"><i class="bi bi-clock-history"></i> Historial de cambios</a></li>
+            </ul>
+        </nav>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="contenido">
+            <h1>Lista de Madres</h1>
+            <ul id="lista-madres"></ul>
+        </main>
+    </div>
+    <script src="/frontend/assets/js/dashboard_admin.js" defer></script>
 </body>
 </html>
