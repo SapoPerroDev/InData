@@ -1,13 +1,14 @@
 from rest_framework import viewsets
-from .models import PerfilUsuario
-from .serializer import UsuariosSerializer
+from .models import PerfilUsuario, entidadAdministradoraServicio
+from .serializer import UsuariosSerializer, EntidadAdministradoraServicioSerializer, AdminInfoSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.decorators import authentication_classes, permission_classes
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
+
 
 @authentication_classes([])  # Sin autenticación
 @permission_classes([AllowAny])  # Permitir acceso sin login
@@ -53,3 +54,16 @@ class UsuariosViewSet(viewsets.ModelViewSet):
         else:
             # Opcional: puedes lanzar un error si intentan borrar un usuario que no sea madre
             pass
+
+class EntidadAdministradoraServicioViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = entidadAdministradoraServicio.objects.all()
+    serializer_class = EntidadAdministradoraServicioSerializer
+    http_method_names = ['get']
+
+class AdminInfoView(APIView):
+    def get(self, request):
+        perfil = getattr(request.user, 'perfil', None)
+        if perfil and perfil.tipo == 'admin':
+            serializer = AdminInfoSerializer(perfil)
+            return Response(serializer.data)
+        return Response({'detail': 'No autorizado'}, status=status.HTTP_403_FORBIDDEN)

@@ -28,7 +28,7 @@ document
 
       // Mapeo de tipo de usuario a ruta
       const dashboardRoutes = {
-        superuser: "/admin/",
+        superuser: "http://127.0.0.1:8000/admin/",
         admin: "/frontend/templates/dashboard_admin.html",
         madre: "/frontend/templates/dashboard_madre.html",
       };

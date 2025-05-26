@@ -1,7 +1,0 @@
-<h1>Eliminar Persona</h1>
-<p>¿Estás seguro de que quieres eliminar a {{ persona }}?</p>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Sí, eliminar</button>
-</form>
-<a href="{% url 'lista_personas' %}">Cancelar</a>

@@ -1,45 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/frontend/assets/css/estilos.css">
-    <title>Admin</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/58deb355db.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="/frontend/assets/css/estilos.css" />
+    <title>InData - Dashboard Admin</title>
+  </head>
+  <body>
     <!-- ENCABEZADO SUPERIOR -->
     <header class="encabezado">
-        <div class="logo">
-            Asociación de Hogares Comunitarios de Bienestar<br>
-            NIT 800123748-8
+      <div class="data-EAS">
+        <img id="logo-EAS" src="/frontend/assets/img/user.png" alt="logo de la EAS" width="auto" height="auto">
+        <div>
+            <h2 id="name-EAS"></h2><br />
+            <h3 id="nit-EAS"></h3>
         </div>
-        <div class="perfil">
-            <i class="bi bi-bell"></i>
-            <span><i class="bi bi-person-circle"></i> {{ user.first_name }} {{ user.last_name }}</span>
-            <form method="POST" action="{% url 'logout' %}" style="display:inline;">
-                {% csrf_token %}
-                <button type="submit" class="logout-btn"><i class="bi bi-box-arrow-right"></i></button>
+      </div>
+      <div class="container-menu-perfil">
+        <i class="fa-solid fa-bell"></i>
+        <div class="separator"></div>
+        <div class="menu-perfil">
+            <div class="info-perfil">
+                <i class="fa-solid fa-user"></i>
+                <div>
+                    <h2 id="name-user"></h2>
+                    <h3 id="role-user"></h3>
+                </div> 
+            </div>
+            <form method="POST" action="#">
+            <button type="submit" class="logout-btn">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
             </form>
         </div>
+      </div>
     </header>
 
     <div class="contenedor">
-        <!-- BARRA LATERAL -->
-        <nav class="sidebar">
-            <ul>
-                <li><a href="#"><i class="bi bi-person-square"></i> Focalización</a></li>
-                <li><a href="#"><i class="bi bi-people-fill"></i> Lista de niños</a></li>
-                <li><a href="#"><i class="bi bi-pencil-square"></i> Editar listado</a></li>
-                <li><a href="#"><i class="bi bi-clock-history"></i> Historial de cambios</a></li>
-            </ul>
-        </nav>
+      <!-- BARRA LATERAL -->
+      <nav class="sidebar">
+        <ul>
+          <li>
+            <a href="#"><i class="bi bi-person-square"></i> Focalización</a>
+          </li>
+          <li>
+            <a href="#"><i class="bi bi-people-fill"></i> Lista de niños</a>
+          </li>
+          <li>
+            <a href="#"><i class="bi bi-pencil-square"></i> Editar listado</a>
+          </li>
+          <li>
+            <a href="#"
+              ><i class="bi bi-clock-history"></i> Historial de cambios</a
+            >
+          </li>
+        </ul>
+      </nav>
 
-        <!-- CONTENIDO PRINCIPAL -->
-        <main class="contenido">
-            <h1>Lista de Madres</h1>
-            <ul id="lista-madres"></ul>
-        </main>
+      <!-- CONTENIDO PRINCIPAL -->
+      <main class="contenido">
+        <h1>Lista de Madres</h1>
+        <ul id="lista-madres"></ul>
+      </main>
     </div>
+    <button id="logoutBtn" class="logout-btn">Cerrar sesión</button>
     <script src="/frontend/assets/js/dashboard_admin.js" defer></script>
-</body>
+    <script src="/frontend/assets/js/logout.js"></script>
+  </body>
 </html>
