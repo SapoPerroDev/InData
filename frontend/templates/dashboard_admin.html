@@ -14,28 +14,41 @@
     <!-- ENCABEZADO SUPERIOR -->
     <header class="encabezado">
       <div class="data-EAS">
-        <img id="logo-EAS" src="/frontend/assets/img/user.png" alt="logo de la EAS" width="auto" height="auto">
-        <div>
-            <h2 id="name-EAS"></h2><br />
-            <h3 id="nit-EAS"></h3>
+        <img
+          id="logo-EAS"
+          src="/frontend/assets/img/user.png"
+          alt="logo de la EAS"
+          width="auto"
+          height="auto"
+        />
+        <div class="info-EAS">
+          <h2 id="name-EAS"></h2>
+          <h3 id="nit-EAS"></h3>
         </div>
       </div>
       <div class="container-menu-perfil">
         <i class="fa-solid fa-bell"></i>
         <div class="separator"></div>
         <div class="menu-perfil">
-            <div class="info-perfil">
-                <i class="fa-solid fa-user"></i>
-                <div>
-                    <h2 id="name-user"></h2>
-                    <h3 id="role-user"></h3>
-                </div> 
+          <div class="info-perfil">
+            <i class="fa-solid fa-user"></i>
+            <div>
+              <h2 id="name-user"></h2>
+              <h3 id="role-user"></h3>
             </div>
-            <form method="POST" action="#">
-            <button type="submit" class="logout-btn">
-                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          </div>
+          <button
+              type="button"
+              id="toggle-logout-panel"
+              class="toggle-panel-btn"
+            >
+              <i class="fa-solid fa-chevron-down"></i>
             </button>
-            </form>
+          <div id="logout-panel" class="logout-panel" style="display: none">
+            <button type="button" id="logoutBtn" class="logout-btn">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar sesión
+            </button>
+          </div>
         </div>
       </div>
     </header>
@@ -67,7 +80,6 @@
         <ul id="lista-madres"></ul>
       </main>
     </div>
-    <button id="logoutBtn" class="logout-btn">Cerrar sesión</button>
     <script src="/frontend/assets/js/dashboard_admin.js" defer></script>
     <script src="/frontend/assets/js/logout.js"></script>
   </body>

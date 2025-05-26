@@ -4,6 +4,7 @@ body {
     font-family: 'Segoe UI', sans-serif;
 }
 
+/*| Estilos del encabezado |*/
 .encabezado {
     background-color: #c3f0ff;
     padding: 10px 5px;
@@ -13,8 +14,25 @@ body {
     height: 100px;
 }
 
+/*| Estilos del logo de la empresa |*/
 .data-EAS {
     display: flex;
+}
+
+.info-EAS {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    h2 {
+        margin: 0;
+        color: #000;
+    }
+    h3 {
+        margin: 0;
+        color: gray;
+        font-size: medium;
+
+    }
 }
 
 #logo-EAS {
@@ -28,6 +46,7 @@ body {
     color: #000;
 }
 
+/*| Estilos del menu de usuario-superior |*/
 .container-menu-perfil {
     display: flex;
     align-items: center;
@@ -46,6 +65,7 @@ body {
     align-items: center;
     margin-right: 10px;
     padding-right: 12px;
+    position: relative;
 }
 
 .info-perfil {
@@ -56,6 +76,7 @@ body {
     text-decoration: none;
     align-items: center;
     justify-content: center;
+    gap: 15px;
 
     h2 {
         margin: 0;
@@ -79,6 +100,52 @@ body {
     }
 }
 
+/* Estilos del panel de usuario - Logout */
+.toggle-panel-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 20px;
+    font-size: 1.2em;
+    color: #333;
+    transition: transform 0.2s;
+}
+
+.toggle-panel-btn.open i {
+    transform: rotate(180deg);
+}
+
+.logout-panel {
+    position: absolute;
+    top: 85px;
+    right: 0;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 10px 20px;
+    z-index: 10;
+    min-width: 160px;
+}
+
+.logout-btn {
+    background: #ff4d4d;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 100%;
+    text-align: left;
+    transition: background 0.2s;
+}
+.logout-btn:hover {
+    background: #d32f2f;
+}
+
+
+/* Estilos del contenedor sidebar */
 .contenedor {
     display: flex;
 }

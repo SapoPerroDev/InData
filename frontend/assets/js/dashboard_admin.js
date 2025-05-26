@@ -14,7 +14,9 @@ async function cargarMadres() {
 
     data.forEach((madre) => {
       const li = document.createElement("li");
-      li.textContent = `${madre.p_nombre} - ${madre.s_nombre}`;
+      li.textContent =
+        `Nombre: ${madre.p_nombre} ${madre.s_nombre} ${madre.p_apellido} ${madre.s_apellido} | ` +
+        `DNI: ${madre.dni} | Teléfono: ${madre.telefono} | Dirección: ${madre.direccion}`;
       lista.appendChild(li);
     });
   } catch (error) {
