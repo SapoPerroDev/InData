@@ -71,6 +71,10 @@ class AdminInfoView(APIView):
             return Response(serializer.data)
         return Response({'detail': 'No autorizado'}, status=status.HTTP_403_FORBIDDEN)
 
+'''
+Enpoints para manejar infantes y tipos de DNI y focalización en el formulario de registro de infantes. Expone
+GET, POST, PUT y DELETE para infantes, y GET para tipos de DNI y focalización.
+'''
 class InfanteViewSet(viewsets.ModelViewSet):
     queryset = Infante.objects.all()
     serializer_class = InfanteSerializer

@@ -6,7 +6,6 @@ from app_indata.api import (
     AdminInfoView, InfanteViewSet, TipoDNIViewSet, TipoFocalizacionViewSet
 )
 
-
 router = DefaultRouter()
 router.register('api/madres', UsuariosViewSet, basename='madre')
 router.register('api/entidades', EntidadAdministradoraServicioViewSet, basename='entidad')

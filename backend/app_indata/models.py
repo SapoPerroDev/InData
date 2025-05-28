@@ -1,5 +1,24 @@
 from django.contrib.auth.models import User #Utiliza una tabla ya establecida por django para usuarios
 from django.db import models
+import os
+
+def eas_image_upload_path(instance, filename):
+    # Guarda en: eas_imagenes/<id>/<nombre de la eas>/<archivo>
+    return os.path.join(
+        'eas_imagenes',
+        str(instance.id),
+        instance.nombre.replace(" ", "_"),
+        filename
+    )
+
+def infante_documento_focalizacion_upload_path(instance, filename):
+    # Guarda en: documentos_focalizacion/<id>/<nombre de uds>/<archivo>
+    return os.path.join(
+        'documentos_focalizacion',
+        str(instance.id_uds.id),
+        instance.id_uds.nombre.replace(" ", "_"),
+        filename
+    )
 
 # Create your models here.
 class entidadAdministradoraServicio(models.Model):
@@ -15,6 +34,7 @@ class entidadAdministradoraServicio(models.Model):
     numero = models.CharField(max_length=10, unique=True)
     longitud = models.CharField(max_length=20)
     latitud = models.CharField(max_length=20)
+    logo = models.ImageField(upload_to=eas_image_upload_path, null=True, blank=True)  # Ruta dinámica por EAS
 
 class PerfilUsuario(models.Model):
     TIPO_USUARIO = (
@@ -57,3 +77,4 @@ class Infante(models.Model):
     p_apellido = models.CharField(max_length=50)
     s_apellido = models.CharField(max_length=50)
     tipo_focalizacion =  models.ForeignKey(TipoFocalizacion, on_delete=models.CASCADE)
+    documento_focalizacion = models.FileField(upload_to=infante_documento_focalizacion_upload_path, null=True, blank=True)  # PDF unido por UDS
