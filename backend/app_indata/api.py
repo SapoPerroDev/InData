@@ -1,6 +1,9 @@
 from rest_framework import viewsets
-from .models import PerfilUsuario, entidadAdministradoraServicio, Infante
-from .serializer import UsuariosSerializer, EntidadAdministradoraServicioSerializer, AdminInfoSerializer, InfanteSerializer
+from .models import PerfilUsuario, entidadAdministradoraServicio, Infante, TipoDNI, TipoFocalizacion
+from .serializer import (
+    UsuariosSerializer, EntidadAdministradoraServicioSerializer, AdminInfoSerializer,
+    InfanteSerializer, TipoDNISerializer, TipoFocalizacionSerializer
+)
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -71,3 +74,13 @@ class AdminInfoView(APIView):
 class InfanteViewSet(viewsets.ModelViewSet):
     queryset = Infante.objects.all()
     serializer_class = InfanteSerializer
+
+class TipoDNIViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = TipoDNI.objects.all()
+    serializer_class = TipoDNISerializer
+    http_method_names = ['get']
+
+class TipoFocalizacionViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = TipoFocalizacion.objects.all()
+    serializer_class = TipoFocalizacionSerializer
+    http_method_names = ['get']
