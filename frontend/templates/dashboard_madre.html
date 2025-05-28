@@ -8,7 +8,117 @@
       crossorigin="anonymous"
     ></script>
     <title>InData - Dashboard Madres</title>
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    .container {
+      display: flex;
+      justify-content: space-between;
+    }
+    .form-section {
+      width: 45%;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    .upload-button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 15px;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+    .upload-button span {
+      padding-left: 10px;
+    }
+    .icon {
+      padding-right: 10px;
+    }
+    .guardar-btn {
+      margin-top: 20px;
+      background-color: black;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .nota {
+      font-size: 0.8em;
+      color: #555;
+    }
+  </style>
 </head>
 <body>
+   <div class="container">
+    <!-- Datos Básicos -->
+    <div class="form-section">
+      <h2>Datos Básicos</h2>
+      <label for="tipo-doc">Tipo de Documentos:</label>
+      <select id="tipo-doc">
+        <option value="registro">Registro Civil</option>
+      </select>
+
+      <label for="numero-doc">Número de Documento:</label>
+      <input type="text" id="numero-doc" placeholder="Ej: 1062497895...">
+
+      <label for="primer-nombre">Primer Nombre:</label>
+      <input type="text" id="primer-nombre" placeholder="Ej: Brayan...">
+
+      <label for="segundo-nombre">Segundo Nombre:</label>
+      <input type="text" id="segundo-nombre" placeholder="Ej: Alejandro...">
+
+      <label for="primer-apellido">Primer Apellido:</label>
+      <input type="text" id="primer-apellido" placeholder="Ej: Gutiérrez...">
+
+      <label for="primer-segundo">Primer Segundo:</label>
+      <input type="text" id="primer-segundo" placeholder="Ej: López...">
+    </div>
+
+    <!-- Documentos -->
+    <div class="form-section">
+      <h2>Documentos</h2>
+
+      <label for="registro-pdf">Cargar Registro Civil (RC):</label>
+      <input type="file" id="registro-pdf" accept="application/pdf" required onchange="validarArchivo(this)">
+
+      <label for="tipo-focalizacion">Tipo de focalización:</label>
+      <select id="tipo-focalizacion">
+        <option value="sisben">Sisbén</option>
+      </select>
+
+      <label for="focalizacion-pdf">Cargar Focalización:</label>
+      <input type="file" id="focalizacion-pdf" accept="application/pdf" required onchange="validarArchivo(this)">
+      <p class="nota">(Sisbén, Restitución de Derechos, Víctima del Conflicto Armado, etc)</p>
+
+      <button class="guardar-btn">GUARDAR REGISTRO</button>
+    </div>
+  </div>
+
+  <script>
+    function validarArchivo(input) {
+      const archivo = input.files[0];
+      if (archivo) {
+        if (archivo.type !== "application/pdf") {
+          alert("Solo se permiten archivos PDF.");
+          input.value = "";
+        } else if (archivo.size > 10 * 1024 * 1024) {
+          alert("El archivo debe pesar menos de 10 MB.");
+          input.value = "";
+        }
+      }
+    }
+  </script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .models import PerfilUsuario, entidadAdministradoraServicio
-from .serializer import UsuariosSerializer, EntidadAdministradoraServicioSerializer, AdminInfoSerializer
+from .models import PerfilUsuario, entidadAdministradoraServicio, Infante
+from .serializer import UsuariosSerializer, EntidadAdministradoraServicioSerializer, AdminInfoSerializer, InfanteSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -67,3 +67,7 @@ class AdminInfoView(APIView):
             serializer = AdminInfoSerializer(perfil)
             return Response(serializer.data)
         return Response({'detail': 'No autorizado'}, status=status.HTTP_403_FORBIDDEN)
+
+class InfanteViewSet(viewsets.ModelViewSet):
+    queryset = Infante.objects.all()
+    serializer_class = InfanteSerializer

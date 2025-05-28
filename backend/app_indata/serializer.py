@@ -26,3 +26,8 @@ class AdminInfoSerializer(serializers.ModelSerializer):
         model = PerfilUsuario
         fields = ['p_nombre', 'p_apellido', 'tipo']
 
+class InfanteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Infante
+        fields = '__all__'
+

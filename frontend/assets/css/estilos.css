@@ -163,14 +163,26 @@ body {
 }
 
 .sidebar li {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .sidebar a {
     color: #000;
     text-decoration: none;
     padding: 10px;
-    display: block;
+    display: flex;
+    align-items: center;
+    background-color: #36c6fa;
+
+    i {
+        margin-right: 10px;
+        color: #000;
+    }
+    
+    span {
+        color: #000;
+        font-weight: bold;
+    }
 }
 
 .sidebar a:hover {
