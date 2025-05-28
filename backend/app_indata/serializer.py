@@ -1,5 +1,8 @@
 from rest_framework import serializers
-from .models import PerfilUsuario, Infante, entidadAdministradoraServicio, TipoDNI, TipoFocalizacion
+from .models import (
+    PerfilUsuario, Infante, entidadAdministradoraServicio,
+    TipoDNI, TipoFocalizacion, UnidadServicio
+)
 
 class UsuariosSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,16 +22,16 @@ class UsuariosSerializer(serializers.ModelSerializer):
 class EntidadAdministradoraServicioSerializer(serializers.ModelSerializer):
     class Meta:
         model = entidadAdministradoraServicio
-        fields = ['nombre', 'nit']
+        fields = ['nit', 'nombre', 'logo']
 
 class AdminInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = PerfilUsuario
         fields = ['p_nombre', 'p_apellido', 'tipo']
 
-class InfanteSerializer(serializers.ModelSerializer):
+class UnidadServicioSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Infante
+        model = UnidadServicio
         fields = '__all__'
 
 class TipoDNISerializer(serializers.ModelSerializer):
@@ -40,4 +43,9 @@ class TipoFocalizacionSerializer(serializers.ModelSerializer):
     class Meta:
         model = TipoFocalizacion
         fields = ['id', 'tipo']
+
+class InfanteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Infante
+        fields = '__all__'
 

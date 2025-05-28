@@ -1,4 +1,4 @@
-async function cargarEntidadAdministradora() {
+/*async function cargarEntidadAdministradora() {
   const token = localStorage.getItem("access_token");
   try {
     const response = await fetch("http://127.0.0.1:8000/api/entidades/", {
@@ -18,7 +18,7 @@ async function cargarEntidadAdministradora() {
   } catch (error) {
     console.error(error.message);
   }
-}
+}*/
 
 async function cargarTiposDNI() {
   const token = localStorage.getItem("access_token");
@@ -88,11 +88,65 @@ async function guardarInfante(e) {
   }
 }
 
+async function unirYGuardarPDFInfante(e) {
+  e.preventDefault();
+  const token = localStorage.getItem("access_token");
+  const formData = new FormData();
+  formData.append(
+    "registro_pdf",
+    document.getElementById("registro-pdf").files[0]
+  );
+  formData.append(
+    "focalizacion_pdf",
+    document.getElementById("focalizacion-pdf").files[0]
+  );
+  formData.append(
+    "tipo_focalizacion",
+    document.getElementById("tipo-focalizacion").value
+  );
+  formData.append("tipo_doc", document.getElementById("tipo-doc").value);
+  formData.append("numero_doc", document.getElementById("numero-doc").value);
+  formData.append(
+    "primer_nombre",
+    document.getElementById("primer-nombre").value
+  );
+  formData.append(
+    "primer_apellido",
+    document.getElementById("primer-apellido").value
+  );
+  formData.append(
+    "segundo_nombre",
+    document.getElementById("segundo-nombre").value
+  );
+  formData.append(
+    "primer_segundo",
+    document.getElementById("primer-segundo").value
+  );
+  // Debes obtener el id_uds real según tu lógica
+  formData.append("id_uds", 1);
+
+  const res = await fetch("http://127.0.0.1:8000/api/unir-guardar-pdf/", {
+    method: "POST",
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+    body: formData,
+  });
+
+  if (res.ok) {
+    const data = await res.json();
+    alert("PDF unido y guardado como: " + data.filename);
+  } else {
+    const error = await res.json();
+    alert("Error al unir y guardar PDFs: " + JSON.stringify(error));
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-  cargarEntidadAdministradora();
+  //cargarEntidadAdministradora();
   cargarTiposDNI();
   cargarTiposFocalizacion();
   document
     .getElementById("guardarInfanteBtn")
-    .addEventListener("click", guardarInfante);
+    .addEventListener("click", unirYGuardarPDFInfante);
 });
