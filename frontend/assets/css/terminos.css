@@ -1,0 +1,26 @@
+ .terminos-container {
+        max-width: 800px;
+        margin: 40px auto;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        padding: 2rem 2.5rem;
+        color: #222;
+      }
+.terminos-container h1, .terminos-container h2 {
+        color: #1e88e5;
+        margin-top: 1.5rem;
+      }
+      .terminos-container ul, .terminos-container ol {
+        margin-left: 1.5rem;
+      }
+      .terminos-container strong {
+        color: #1976d2;
+      }
+      .logo-indata {
+        display: block;
+        margin: 0 auto 2rem auto;
+      }
+@media (max-width: 600px) {
+        .terminos-container { padding: 1rem; }
+    }
