@@ -1,0 +1,60 @@
+<h2>Formulario de Focalización</h2>
+<div class="container">
+      <!-- Datos Básicos -->
+      <div class="form-section">
+        <h2>Datos Básicos</h2>
+        <label for="tipo-doc">Tipo de Documentos:</label>
+        <select id="tipo-doc"></select>
+
+        <label for="numero-doc">Número de Documento:</label>
+        <input type="text" id="numero-doc" placeholder="Ej: 1062497895..." />
+
+        <label for="primer-nombre">Primer Nombre:</label>
+        <input type="text" id="primer-nombre" placeholder="Ej: Brayan..." />
+
+        <label for="segundo-nombre">Segundo Nombre:</label>
+        <input type="text" id="segundo-nombre" placeholder="Ej: Alejandro..." />
+
+        <label for="primer-apellido">Primer Apellido:</label>
+        <input
+          type="text"
+          id="primer-apellido"
+          placeholder="Ej: Gutiérrez..."
+        />
+        <label for="primer-segundo">Primer Segundo:</label>
+        <input type="text" id="primer-segundo" placeholder="Ej: López..." />
+      </div>
+
+      <!-- Documentos -->
+      <div class="form-section">
+        <h2>Documentos</h2>
+
+        <label for="registro-pdf">Cargar Registro Civil (RC):</label>
+        <input
+          type="file"
+          id="registro-pdf"
+          accept="application/pdf"
+          required
+          onchange="validarArchivo(this)"
+        />
+
+        <label for="tipo-focalizacion">Tipo de focalización:</label>
+        <select id="tipo-focalizacion"></select>
+
+        <label for="focalizacion-pdf">Cargar Focalización:</label>
+        <input
+          type="file"
+          id="focalizacion-pdf"
+          accept="application/pdf"
+          required
+          onchange="validarArchivo(this)"
+        />
+        <p class="nota">
+          (Sisbén, Restitución de Derechos, Víctima del Conflicto Armado, etc)
+        </p>
+
+        <button type="submit" class="guardar-btn" id="guardarInfanteBtn">
+          GUARDAR REGISTRO
+        </button>
+      </div>
+</div>

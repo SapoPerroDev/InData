@@ -195,3 +195,68 @@ body {
     width: 100%;
     background-color: white;
 }
+
+/*/**/
+ .container {
+        display: flex;
+        justify-content: space-between;
+      }
+      .form-section {
+        width: 45%;
+      }
+      label {
+        display: block;
+        margin-top: 15px;
+        font-weight: bold;
+      }
+      input,
+      select,
+      button {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        box-sizing: border-box;
+      }
+      .upload-button {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 15px;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        cursor: pointer;
+      }
+      .upload-button span {
+        padding-left: 10px;
+      }
+      .icon {
+        padding-right: 10px;
+      }
+      .guardar-btn {
+        margin-top: 20px;
+        background-color: black;
+        color: white;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .nota {
+        font-size: 0.8em;
+        color: #555;
+      }
+      /* Estilos para la tabla */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+      }

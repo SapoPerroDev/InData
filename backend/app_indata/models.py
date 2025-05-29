@@ -35,7 +35,6 @@ class entidadAdministradoraServicio(models.Model):
     longitud = models.CharField(max_length=20)
     latitud = models.CharField(max_length=20)
     logo = models.ImageField(upload_to=eas_image_upload_path, null=True, blank=True)  # Ruta dinámica por EAS
-
 class PerfilUsuario(models.Model):
     TIPO_USUARIO = (
         ('admin', 'Administrador EAS'),

@@ -1,8 +1,8 @@
-from rest_framework import viewsets
-from .models import PerfilUsuario, entidadAdministradoraServicio, Infante, TipoDNI, TipoFocalizacion
+from rest_framework import viewsets, generics
+from .models import PerfilUsuario, entidadAdministradoraServicio, Infante, TipoDNI, TipoFocalizacion, UnidadServicio
 from .serializer import (
-    UsuariosSerializer, EntidadAdministradoraServicioSerializer, AdminInfoSerializer,
-    InfanteSerializer, TipoDNISerializer, TipoFocalizacionSerializer
+    UsuariosSerializer, EntidadAdministradoraServicioSerializer,
+    InfanteSerializer, TipoDNISerializer, TipoFocalizacionSerializer, UserCreateSerializer, UnidadServicioSerializer
 )
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -39,6 +39,9 @@ class LoginView(APIView):
             })
         return Response({"error": "Credenciales inválidas"}, status=status.HTTP_401_UNAUTHORIZED)
 
+class UserCreateView(generics.CreateAPIView):
+    serializer_class = UserCreateSerializer
+
 class UsuariosViewSet(viewsets.ModelViewSet):
     serializer_class = UsuariosSerializer
     # Metodo para mostrar y filtrar por tipo 'madre': GET
@@ -63,13 +66,18 @@ class EntidadAdministradoraServicioViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = EntidadAdministradoraServicioSerializer
     http_method_names = ['get']
 
-class AdminInfoView(APIView):
+class UsuarioInfoView(APIView):
     def get(self, request):
         perfil = getattr(request.user, 'perfil', None)
-        if perfil and perfil.tipo == 'admin':
-            serializer = AdminInfoSerializer(perfil)
+        if perfil:
+            serializer = UsuariosSerializer(perfil)
             return Response(serializer.data)
         return Response({'detail': 'No autorizado'}, status=status.HTTP_403_FORBIDDEN)
+    
+class UnidadServicioInfoView(viewsets.ModelViewSet):
+    queryset = UnidadServicio.objects.all()
+    serializer_class = UnidadServicioSerializer
+    http_method_names = ['get']
 
 '''
 Enpoints para manejar infantes y tipos de DNI y focalización en el formulario de registro de infantes. Expone

@@ -16,7 +16,7 @@
       <div class="data-EAS">
         <img
           id="logo-EAS"
-          src="/frontend/assets/img/user.png"
+          src=""
           alt="logo de la EAS"
           width="auto"
           height="auto"
@@ -38,12 +38,12 @@
             </div>
           </div>
           <button
-              type="button"
-              id="toggle-logout-panel"
-              class="toggle-panel-btn"
-            >
-              <i class="fa-solid fa-chevron-down"></i>
-            </button>
+            type="button"
+            id="toggle-logout-panel"
+            class="toggle-panel-btn"
+          >
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
           <div id="logout-panel" class="logout-panel" style="display: none">
             <button type="button" id="logoutBtn" class="logout-btn">
               <i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar sesión
@@ -58,20 +58,25 @@
       <nav class="sidebar">
         <ul>
           <li>
-            <a href="#"><i class="fa-solid fa-user-plus"></i><span>Madres</span></a>
+            <a href="#" data-url="/frontend/templates/partials/formulario_madre.html"
+              ><i class="fa-solid fa-user-plus"></i><span>Madres</span></a
+            >
           </li>
           <li>
-            <a href="#"><i class="fa-solid fa-list-ul"></i><span>Lista de madres</span></a>
+            <a href="#" data-url="/frontend/templates/partials/lista_madres.html"
+              ><i class="fa-solid fa-list-ul"></i
+              ><span>Lista de madres</span></a
+            >
           </li>
           <li>
-            <a href="#"><i class="fa-solid fa-user-plus"></i><span>Focalización</span></a>
-          </li>
-          <li>
-            <a href="#"><i class="fa-solid fa-list-ul"></i><span>Lista de niños</span></a>
+            <a href="#" data-url="/frontend/templates/partials/lista_infantes.html"
+              ><i class="fa-solid fa-list-ul"></i><span>Lista de niños</span></a
+            >
           </li>
           <li>
             <a href="#"
-              ><i class="fa-solid fa-clock-rotate-left"></i><span>Historial de cambios</span></a
+              ><i class="fa-solid fa-clock-rotate-left"></i
+              ><span>Historial de cambios</span></a
             >
           </li>
         </ul>
@@ -79,11 +84,9 @@
 
       <!-- CONTENIDO PRINCIPAL -->
       <main class="contenido">
-        <h1>Lista de Madres</h1>
-        <ul id="lista-madres"></ul>
       </main>
     </div>
-    <script src="/frontend/assets/js/dashboard_admin.js" defer></script>
+    <script type="module" src="/frontend/assets/js/dashboard_admin.js" defer></script>
     <script src="/frontend/assets/js/logout.js"></script>
   </body>
 </html>

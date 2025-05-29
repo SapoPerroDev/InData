@@ -1,152 +1,107 @@
-/*async function cargarEntidadAdministradora() {
+import {
+  inicializarFormularioInfante,
+  cargarTiposDNI,
+  cargarTiposFocalizacion
+} from "./formulario_infante.js";
+import { cargarInfantes } from "./infantes_utils.js";
+import { cargarEntidadAdministradora } from "./eas_utils.js";
+
+async function cargarInfoUser() {
   const token = localStorage.getItem("access_token");
   try {
-    const response = await fetch("http://127.0.0.1:8000/api/entidades/", {
+    // 1. Obtener info de usuario (madre o admin)
+    const response = await fetch("http://127.0.0.1:8000/api/user-info/", {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + token,
       },
     });
     if (!response.ok)
-      throw new Error("No se pudo obtener la entidad administradora");
-    const entidades = await response.json();
-    if (entidades.length > 0) {
-      document.getElementById("name-EAS").textContent = entidades[0].nombre;
-      document.getElementById("nit-EAS").textContent =
-        "NIT: " + entidades[0].nit;
+      throw new Error("No se pudo obtener la información del usuario");
+    const data = await response.json();
+    document.getElementById(
+      "name-user"
+    ).textContent = `${data.p_nombre} ${data.p_apellido}`;
+    // 2. Si es madre, buscar la UDS asociada y mostrar el nombre
+    if (data.tipo === "madre") {
+      // Buscar la UDS donde id_madre == data.id (no data.user)
+      const udsRes = await fetch(
+        "http://127.0.0.1:8000/api/unidades-servicio/",
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+            Accept: "application/json",
+          },
+        }
+      );
+      if (udsRes.ok) {
+        const udsData = await udsRes.json();
+        let idMadre = data.id; // Usar siempre el id del perfil, no el id del user
+        let uds = null;
+        if (Array.isArray(udsData)) {
+          uds = udsData.find(
+            (u) =>
+              String(u.id_madre) === String(idMadre) ||
+              (u.id_madre && String(u.id_madre.id) === String(idMadre))
+          );
+        }
+        if (uds && uds.nombre) {
+          document.getElementById("role-user").textContent = uds.nombre;
+        } else {
+          document.getElementById("role-user").textContent =
+            "Madre Comunitaria";
+        }
+      } else {
+        document.getElementById("role-user").textContent = "Madre Comunitaria";
+      }
+    } else {
+      document.getElementById("role-user").textContent =
+        data.tipo === "admin" ? "Administrador EAS" : data.tipo;
     }
   } catch (error) {
     console.error(error.message);
   }
-}*/
-
-async function cargarTiposDNI() {
-  const token = localStorage.getItem("access_token");
-  const select = document.getElementById("tipo-doc");
-  select.innerHTML = "";
-  const res = await fetch("http://127.0.0.1:8000/api/tipos-dni/", {
-    headers: { Authorization: "Bearer " + token },
-  });
-  const data = await res.json();
-  data.forEach((tipo) => {
-    const opt = document.createElement("option");
-    opt.value = tipo.id;
-    opt.textContent = tipo.tipo;
-    select.appendChild(opt);
-  });
 }
 
-async function cargarTiposFocalizacion() {
-  const token = localStorage.getItem("access_token");
-  const select = document.getElementById("tipo-focalizacion");
-  select.innerHTML = "";
-  const res = await fetch("http://127.0.0.1:8000/api/tipos-focalizacion/", {
-    headers: { Authorization: "Bearer " + token },
-  });
-  const data = await res.json();
-  data.forEach((tipo) => {
-    const opt = document.createElement("option");
-    opt.value = tipo.id;
-    opt.textContent = tipo.tipo;
-    select.appendChild(opt);
-  });
-}
+async function cargarContenidoEnMain(url) {
+  const main = document.querySelector("main.contenido");
+  main.innerHTML = "<p>Cargando...</p>";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("No se pudo cargar el contenido");
+    const html = await response.text();
+    main.innerHTML = html;
 
-async function guardarInfante(e) {
-  e.preventDefault();
-  const token = localStorage.getItem("access_token");
-  // Aquí debes obtener el id_uds correspondiente (por ejemplo, seleccionando una UDS o asignando una por defecto)
-  // Por simplicidad, aquí se usa un valor fijo. Debes adaptarlo según tu lógica.
-  const id_uds = 1;
-
-  const body = {
-    id_uds: id_uds,
-    tipo_dni: document.getElementById("tipo-doc").value,
-    dni: document.getElementById("numero-doc").value,
-    p_nombre: document.getElementById("primer-nombre").value,
-    s_nombre: document.getElementById("segundo-nombre").value,
-    p_apellido: document.getElementById("primer-apellido").value,
-    s_apellido: document.getElementById("primer-segundo").value,
-    tipo_focalizacion: document.getElementById("tipo-focalizacion").value,
-  };
-
-  const res = await fetch("http://127.0.0.1:8000/api/infantes/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    },
-    body: JSON.stringify(body),
-  });
-
-  if (res.ok) {
-    alert("Infante guardado correctamente");
-    // Opcional: limpiar formulario
-  } else {
-    const error = await res.json();
-    alert("Error al guardar: " + JSON.stringify(error));
+    if (url.includes("lista_infantes")) {
+      cargarInfantes();
+    }
+    if (url.includes("formulario_focalizacion")) {
+      await cargarTiposDNI();
+      await cargarTiposFocalizacion();
+      inicializarFormularioInfante();
+    }
+    if (url.includes("historial_focalizaciones")) {
+    }
+  } catch (error) {
+    main.innerHTML = `<p style="color:red;">${error.message}</p>`;
   }
 }
 
-async function unirYGuardarPDFInfante(e) {
-  e.preventDefault();
-  const token = localStorage.getItem("access_token");
-  const formData = new FormData();
-  formData.append(
-    "registro_pdf",
-    document.getElementById("registro-pdf").files[0]
-  );
-  formData.append(
-    "focalizacion_pdf",
-    document.getElementById("focalizacion-pdf").files[0]
-  );
-  formData.append(
-    "tipo_focalizacion",
-    document.getElementById("tipo-focalizacion").value
-  );
-  formData.append("tipo_doc", document.getElementById("tipo-doc").value);
-  formData.append("numero_doc", document.getElementById("numero-doc").value);
-  formData.append(
-    "primer_nombre",
-    document.getElementById("primer-nombre").value
-  );
-  formData.append(
-    "primer_apellido",
-    document.getElementById("primer-apellido").value
-  );
-  formData.append(
-    "segundo_nombre",
-    document.getElementById("segundo-nombre").value
-  );
-  formData.append(
-    "primer_segundo",
-    document.getElementById("primer-segundo").value
-  );
-  // Debes obtener el id_uds real según tu lógica
-  formData.append("id_uds", 1);
-
-  const res = await fetch("http://127.0.0.1:8000/api/unir-guardar-pdf/", {
-    method: "POST",
-    headers: {
-      Authorization: "Bearer " + token,
-    },
-    body: formData,
+// Asocia los clicks del menú lateral a la carga dinámica
+function inicializarMenuLateral() {
+  document.querySelectorAll(".sidebar a").forEach((enlace) => {
+    enlace.addEventListener("click", function (e) {
+      e.preventDefault();
+      const url = this.getAttribute("data-url");
+      if (url) {
+        cargarContenidoEnMain(url);
+      }
+    });
   });
-
-  if (res.ok) {
-    const data = await res.json();
-    alert("PDF unido y guardado como: " + data.filename);
-  } else {
-    const error = await res.json();
-    alert("Error al unir y guardar PDFs: " + JSON.stringify(error));
-  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  //cargarEntidadAdministradora();
-  cargarTiposDNI();
-  cargarTiposFocalizacion();
-  document
-    .getElementById("guardarInfanteBtn")
-    .addEventListener("click", unirYGuardarPDFInfante);
+  inicializarMenuLateral();
+  cargarEntidadAdministradora();
+  cargarInfoUser();
 });
