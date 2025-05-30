@@ -175,7 +175,25 @@ export async function guardarInfante(e) {
 
   if (res.ok) {
     alert("Infante guardado correctamente");
-    // Opcional: limpiar formulario
+    // Limpiar los campos del formulario manualmente
+    document.getElementById("tipo-doc").value = "";
+    document.getElementById("numero-doc").value = "";
+    document.getElementById("primer-nombre").value = "";
+    document.getElementById("segundo-nombre").value = "";
+    document.getElementById("primer-apellido").value = "";
+    document.getElementById("primer-segundo").value = "";
+    document.getElementById("tipo-focalizacion").value = "";
+    if (document.getElementById("registro-pdf")) document.getElementById("registro-pdf").value = "";
+    if (document.getElementById("focalizacion-pdf")) document.getElementById("focalizacion-pdf").value = "";
+    // Recargar la tabla de infantes si existe
+    if (window.cargarInfantes) {
+      window.cargarInfantes();
+    } else {
+      import("/frontend/assets/js/infantes_utils.js").then((mod) => {
+        if (mod.cargarInfantes) mod.cargarInfantes();
+      });
+    }
+    // NO cambiar de vista ni recargar el main
   } else {
     const error = await res.json();
     alert("Error al guardar: " + JSON.stringify(error));

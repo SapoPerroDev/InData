@@ -1,6 +1,7 @@
 import { cargarInfantes } from "./infantes_utils.js";
 import { cargarEntidadAdministradora } from "./eas_utils.js";
 import { inicializarFormularioMadre } from "./formulario_madre.js";
+import { cargarMadres } from "./madres_utils.js";
 
 async function cargarInfoUser() {
   const token = localStorage.getItem("access_token");
@@ -24,7 +25,7 @@ async function cargarInfoUser() {
   }
 }
 
-async function cargarMadresParcial() {
+/*async function cargarMadresParcial() {
   const token = localStorage.getItem("access_token");
   try {
     const response = await fetch("http://127.0.0.1:8000/api/madres/", {
@@ -88,7 +89,7 @@ async function cargarMadresParcial() {
       tbody.innerHTML = `<tr><td colspan="11" style="color:red;">${error.message}</td></tr>`;
     }
   }
-}
+}*/
 
 // Modifica cargarContenidoEnMain para inicializar la tabla de infantes si corresponde
 async function cargarContenidoEnMain(url) {
@@ -105,7 +106,7 @@ async function cargarContenidoEnMain(url) {
       cargarInfantes();
     }
     if (url.includes("lista_madres")) {
-      cargarMadresParcial();
+      cargarMadres();
     }
     if (url.includes("formulario_madre")) {
       inicializarFormularioMadre();

@@ -1,5 +1,9 @@
-<div style="margin-top: 40px"></div>
+<!-- Tabla de madres registradas -->
+<div style="margin-top: 40px">
   <h2>Madres Registradas</h2>
+  <button id="eliminar-madres-btn" style="margin-bottom: 10px; display: none">
+    Eliminar
+  </button>
   <table
     id="tabla-madres"
     border="1"
@@ -7,8 +11,10 @@
   >
     <thead>
       <tr>
+        <th></th>
         <th>N°</th>
         <th>Usuario</th>
+        <th>Contraseña</th>
         <th>Tipo</th>
         <th>DNI</th>
         <th>Primer Nombre</th>
@@ -17,7 +23,7 @@
         <th>Segundo Apellido</th>
         <th>Teléfono</th>
         <th>Dirección</th>
-        <th>ID EAS</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>

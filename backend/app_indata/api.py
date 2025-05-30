@@ -11,10 +11,40 @@ from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework import mixins, generics
+from django.contrib.auth.models import User
+from rest_framework import serializers, viewsets
+from django.contrib.auth.hashers import make_password
+
+# Serializer para el modelo User de Django
+class DjangoUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        # Puedes agregar más campos si lo necesitas
+        fields = ['id', 'username', 'email', 'is_active', 'is_staff', 'is_superuser', 'password']
+        extra_kwargs = {
+            'password': {'write_only': True, 'required': False}
+        }
+
+    def update(self, instance, validated_data):
+        password = validated_data.pop('password', None)
+        # Actualiza el resto de los campos normalmente
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        if password:
+            instance.password = make_password(password)
+        instance.save()
+        return instance
+
+# ViewSet para exponer los usuarios de Django vía API REST
+class DjangoUserViewSet(viewsets.ModelViewSet):  # Cambia de ReadOnlyModelViewSet a ModelViewSet
+    queryset = User.objects.all()
+    serializer_class = DjangoUserSerializer
+    http_method_names = ['get', 'patch', 'put', 'head', 'options']
 
 
 @authentication_classes([])  # Sin autenticación
-@permission_classes([AllowAny])  # Permitir acceso sin login
+@permission_classes([AllowAny])
 class LoginView(APIView):
     def post(self, request):
         username = request.data.get("username")
@@ -39,8 +69,11 @@ class LoginView(APIView):
             })
         return Response({"error": "Credenciales inválidas"}, status=status.HTTP_401_UNAUTHORIZED)
 
-class UserCreateView(generics.CreateAPIView):
+class UserCreateView(mixins.ListModelMixin, generics.CreateAPIView):
     serializer_class = UserCreateSerializer
+
+    def get_queryset(self):
+        return User.objects.all()
 
 class UsuariosViewSet(viewsets.ModelViewSet):
     serializer_class = UsuariosSerializer
@@ -55,8 +88,12 @@ class UsuariosViewSet(viewsets.ModelViewSet):
         serializer.save(tipo='madre')
     # Metodo para eliminar un usuario de tipo 'madre': DELETE
     def perform_destroy(self, instance):
+        # Elimina el usuario de Django, lo que elimina en cascada el perfil
         if instance.tipo == 'madre':
-            instance.delete()
+            if instance.user:
+                instance.user.delete()
+            else:
+                instance.delete()
         else:
             # Opcional: puedes lanzar un error si intentan borrar un usuario que no sea madre
             pass

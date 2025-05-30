@@ -1,28 +1,61 @@
 <!-- Tabla de infantes registrados -->
-    <div style="margin-top: 40px">
-      <h2>Infantes Registrados</h2>
-      <table
-        id="tabla-infantes"
-        border="1"
-        style="width: 100%; border-collapse: collapse"
-      >
-        <thead>
-          <tr>
-            <th>N°</th>
-            <th>Primer nombre</th>
-            <th>Segundo nombre</th>
-            <th>Primer apellido</th>
-            <th>Segundo apellido</th>
-            <th>Tipo de documento</th>
-            <th>Número de documento</th>
-            <th>Tipo focalización</th>
-            <th>UDS</th>
-            <th>Documento focalización</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Aquí se insertarán las filas dinámicamente -->
-        </tbody>
-      </table>
-    </div>
-
+<div style="margin-top: 40px">
+  <h2>Infantes Registrados</h2>
+  <div
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    "
+  >
+    <!-- El botón eliminar solo se muestra si el usuario es admin, se controla por JS -->
+    <button id="eliminar-infantes-btn" style="display: none">Eliminar</button>
+    <!-- Botón para descargar todos los PDFs en zip alineado a la derecha -->
+    <a
+      id="descargar-pdfs-zip-btn"
+      href="#"
+      style="
+        display: inline-block;
+        background: #4d79ff;
+        color: #fff;
+        border: 2px solid #3451a1;
+        border-radius: 8px;
+        padding: 8px 24px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 0.2s, border 0.2s, box-shadow 0.2s;
+        box-shadow: 0 2px 8px rgba(77, 121, 255, 0.08);
+        margin-left: auto;
+      "
+      >Descargar todos los PDFs (zip)</a
+    >
+  </div>
+  <table
+    id="tabla-infantes"
+    border="1"
+    style="width: 100%; border-collapse: collapse"
+  >
+    <thead>
+      <tr>
+        <th></th>
+        <th>N°</th>
+        <th>Primer nombre</th>
+        <th>Segundo nombre</th>
+        <th>Primer apellido</th>
+        <th>Segundo apellido</th>
+        <th>Tipo de documento</th>
+        <th>Número de documento</th>
+        <th>Tipo focalización</th>
+        <th>UDS</th>
+        <th>Documento focalización</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Aquí se insertarán las filas dinámicamente -->
+    </tbody>
+  </table>
+</div>

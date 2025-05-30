@@ -76,6 +76,7 @@ async function cargarContenidoEnMain(url) {
       cargarInfantes();
     }
     if (url.includes("formulario_focalizacion")) {
+      cargarInfantes();
       await cargarTiposDNI();
       await cargarTiposFocalizacion();
       inicializarFormularioInfante();

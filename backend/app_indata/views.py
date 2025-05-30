@@ -3,6 +3,10 @@ from rest_framework.response import Response
 from rest_framework import status
 from PyPDF2 import PdfMerger
 import tempfile
+import os
+import zipfile
+from django.http import HttpResponse
+from django.conf import settings
 from .models import Infante, UnidadServicio, TipoDNI, TipoFocalizacion
 
 class UnirYGuardarPDFInfanteView(APIView):
@@ -59,3 +63,33 @@ class UnirYGuardarPDFInfanteView(APIView):
             focalizacion_pdf.close()
 
         return Response({'success': True, 'filename': nombre_archivo}, status=status.HTTP_201_CREATED)
+
+class DescargarPDFsZipView(APIView):
+
+    def get(self, request):
+        # Ruta base donde se guardan los PDFs (ajusta si tu MEDIA_ROOT es diferente)
+        base_dir = os.path.join(settings.MEDIA_ROOT, "documentos_focalizacion")
+        if not os.path.exists(base_dir):
+            return HttpResponse("No hay documentos para comprimir.", status=404)
+
+        # Nombre del archivo zip temporal
+        zip_filename = "documentos_focalizacion.zip"
+        zip_path = os.path.join(settings.MEDIA_ROOT, zip_filename)
+
+        # Crear el zip con la estructura de carpetas
+        with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zipf:
+            for root, dirs, files in os.walk(base_dir):
+                for file in files:
+                    file_path = os.path.join(root, file)
+                    # Mantener la estructura relativa desde documentos_focalizacion/
+                    arcname = os.path.relpath(file_path, settings.MEDIA_ROOT)
+                    zipf.write(file_path, arcname)
+
+        # Leer el zip y devolverlo como respuesta
+        with open(zip_path, "rb") as f:
+            response = HttpResponse(f.read(), content_type="application/zip")
+            response["Content-Disposition"] = f'attachment; filename="{zip_filename}"'
+
+        # Opcional: eliminar el zip temporal después de servirlo
+        os.remove(zip_path)
+        return response
